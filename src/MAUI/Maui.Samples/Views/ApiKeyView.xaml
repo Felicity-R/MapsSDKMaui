@@ -22,7 +22,7 @@
             </StackLayout>
             <Entry x:Name="KeyEntryBox"
                    Margin="5"
-                   Text="" />
+                   Text="AAPKd746d17db8a248429fa96aa9b5188f98NPIrC5a1kIzxJgKfPwzhfRm65jEydZtfxTWrZWt0cK9U-YeGQOwWcfAgygIGntkT" />
             <StackLayout Orientation="Horizontal">
                 <Button x:Name="SetKeyButton"
                         Margin="5"

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>ArcGIS.Samples</RootNamespace>
@@ -13,7 +13,7 @@
 		<ApplicationTitle>ArcGIS Maps .NET MAUI Samples</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.esri.arcgisruntime.samples.maui</ApplicationId>
+		<ApplicationId>com.geocortex.mobile.app</ApplicationId>
 		<ApplicationIdGuid>dfaa7aed-d4c6-448f-8c5b-61b58c75ea36</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -32,6 +32,12 @@
 		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND '$(Platform)' == 'AnyCPU'">win-x64</RuntimeIdentifier>
 		<AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
+	  <CodesignKey>Apple Development: Created via API (31TZWIFKQ6QJ)</CodesignKey>
+	  <CodesignProvision>VS: WildCard Development</CodesignProvision>
+	  <ProvisioningType>automatic</ProvisioningType>
 	</PropertyGroup>
 
     <ItemGroup>
