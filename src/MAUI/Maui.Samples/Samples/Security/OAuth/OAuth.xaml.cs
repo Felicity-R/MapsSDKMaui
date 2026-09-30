@@ -23,10 +23,10 @@ namespace ArcGIS.Samples.OAuth
     public partial class OAuth : ContentPage
     {
         // - The URL of the portal to authenticate with
-        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private const string ServerUrl = "https://nis3-dev.tiwag.at/portal";
 
         // - The ID for a web map item hosted on the server (the ID below is for a traffic map of Paris).
-        private const string WebMapId = "e5039444ef3c48b8a8fdc9227f9be7c1";
+        private const string WebMapId = "d516658fb4b14022a9c90882dcafe6d8";
 
         public OAuth()
         {
