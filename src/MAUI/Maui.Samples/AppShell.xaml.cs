@@ -1,3 +1,4 @@
+using ArcGIS.Controls;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 
@@ -8,36 +9,43 @@ public partial class AppShell : Shell
     public AppShell()
     {
         InitializeComponent();
-
-        Initialize();
+        this.Appearing += OnFirstAppearing;
     }
 
-    private void Initialize()
+    private async void OnFirstAppearing(object? sender, EventArgs e)
     {
-        this.Appearing += FirstLoaded;
-    }
+        this.Appearing -= OnFirstAppearing;
 
-    #region Check API Key
-    private void FirstLoaded(object sender, EventArgs e)
-    {
-        this.Appearing -= FirstLoaded;
+        // Let the first frame appear (avoids the scene-create watchdog)
+        await Task.Yield();
 
-        SampleManager.Current.Initialize();
+        // Now do the heavy work
+        try
+        {
+            SampleManager.Current.Initialize();
 
+            // Put the real flyout content in
+            FlyoutHost.Content = new CategoriesFlyoutContent();
+
+            // Navigate to the real starting page
+            await GoToAsync("//CategoryPage");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Startup error: {ex}");
+        }
+
+        // Optional: keep your original API-key check
         _ = CheckApiKey();
     }
 
     private async Task CheckApiKey()
     {
-        // Attempt to load a locally stored API key.
         await ApiKeyManager.TrySetLocalKey();
-
-        // Check that the current API key is valid.
-        ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+        var status = await ApiKeyManager.CheckKeyValidity();
         if (status != ApiKeyStatus.Valid)
         {
             await Shell.Current.Navigation.PushAsync(new ApiKeyPage(), true);
         }
     }
-    #endregion
 }

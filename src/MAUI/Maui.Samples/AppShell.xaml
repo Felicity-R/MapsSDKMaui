@@ -6,25 +6,30 @@
        xmlns:local="clr-namespace:ArcGIS"
        Shell.FlyoutBehavior="Flyout"
        Shell.TabBarIsVisible="False">
+
     <Shell.Resources>
         <Style BasedOn="{StaticResource BaseStyle}" TargetType="local:AppShell" />
     </Shell.Resources>
+
     <Shell.FlyoutHeader>
         <Label Margin="5"
                Padding="5"
                FontAttributes="Bold"
                FontSize="18"
-               HeightRequest="{OnPlatform MacCatalyst=80,
-                                          iOS=65,
-                                          Default=40}"
+               HeightRequest="{OnPlatform MacCatalyst=80, iOS=65, Default=40}"
                HorizontalTextAlignment="Center"
                Text="Categories"
                TextColor="White"
                VerticalTextAlignment="End" />
     </Shell.FlyoutHeader>
+
+    <!-- Start empty – we fill this after the first frame -->
     <Shell.FlyoutContent>
-        <controls:CategoriesFlyoutContent />
+        <ContentView x:Name="FlyoutHost" />
     </Shell.FlyoutContent>
 
-    <ShellContent ContentTemplate="{DataTemplate local:CategoryPage}" Route="CategoryPage" />
+    <!-- Lightweight starting page so scene creation succeeds -->
+    <ShellContent Route="home"
+                  ContentTemplate="{DataTemplate local:EmptyPage}" />
+
 </Shell>
